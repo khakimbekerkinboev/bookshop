@@ -56,6 +56,7 @@ navbarUl.append(a4)
 //========================
 // Main
 //========================
+
 // books section
 
 const main = document.createElement('main')
@@ -81,20 +82,109 @@ fetch('./books.json')
   })
   .then((data) => {
     for (let i = 0; i < data.length; i++) {
-      let singleCard = document.createElement('div')
+      const singleCard = document.createElement('div')
       singleCard.classList.add('single-card')
-      singleCard.innerHTML = `<div class="top">
-              <img src="${data[i].imageLink}" alt="img" />
-              <h4 class="author">${data[i].author}:</h4>
-              <h2 class="title">${data[i].title}</h2>
-              <h4 class="price"><span>Price:</span> $${data[i].price}</h4>
-              </div>
-              <div class="bottom">
-              <div class="bottom-links">
-                <a href="">Show more</a>
-                <a href="">Add to bag</a>
-              </div>
-              </div>`
+
+      //divs
+      const firstDiv = document.createElement('div')
+      const secondDiv = document.createElement('div')
+
+      //first-div items
+      const imgCard = document.createElement('img')
+      imgCard.setAttribute('src', `${data[i].imageLink}`)
+      imgCard.setAttribute('alt', 'img')
+      firstDiv.append(imgCard)
+
+      const author = document.createElement('h4')
+      author.classList.add('author')
+      author.innerHTML = `${data[i].author}:`
+      firstDiv.append(author)
+
+      const title = document.createElement('h2')
+      title.classList.add('title')
+      title.innerHTML = `${data[i].title}`
+      firstDiv.append(title)
+
+      const price = document.createElement('h4')
+      price.classList.add('price')
+      price.innerHTML = `<span>Price:</span> $${data[i].price}`
+      firstDiv.append(price)
+
+      //second-div items
+      const bottomLinks = document.createElement('div')
+      bottomLinks.classList.add('bottom-links')
+      const showMore = document.createElement('a')
+      showMore.innerHTML = 'Show more'
+      showMore.setAttribute('href', '#')
+      showMore.classList.add('show-more-btn')
+      const addToBag = document.createElement('a')
+      addToBag.innerHTML = 'Add to bag'
+      addToBag.setAttribute('href', '#')
+
+      bottomLinks.append(showMore)
+      bottomLinks.append(addToBag)
+      secondDiv.append(bottomLinks)
+
+      //insertion
+      singleCard.append(firstDiv)
+      singleCard.append(secondDiv)
       cards.append(singleCard)
     }
+  })
+
+fetch('./books.json')
+  .then((response) => {
+    return response.json()
+  })
+  .then((data) => {
+    //modal window
+    const cardDesc = document.createElement('div')
+    cardDesc.classList.add('card-description')
+    cardDesc.classList.add('inactive')
+    document.body.append(cardDesc)
+
+    //description-banner
+    const descBanner = document.createElement('div')
+    descBanner.classList.add('description-banner')
+    cardDesc.append(descBanner)
+
+    //h1 and p
+    const descH1 = document.createElement('h1')
+    const descP = document.createElement('p')
+    // ============================================================
+    const showMoreBtns = document.querySelectorAll('.show-more-btn')
+    showMoreBtns.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        //change title
+        descH1.innerText =
+          e.currentTarget.parentElement.parentElement.previousElementSibling.children[2].innerText
+
+        //change description
+        data.forEach((obj) => {
+          if (
+            obj.title ==
+            e.currentTarget.parentElement.parentElement.previousElementSibling
+              .children[2].innerText
+          ) {
+            descP.innerText = obj.description
+          }
+        })
+        //show the modal window
+        cardDesc.classList.remove('inactive')
+      })
+    })
+    // ============================================================
+    descBanner.append(descH1)
+    descBanner.append(descP)
+
+    //i
+    const descI = document.createElement('i')
+    descI.classList.add('fa-solid')
+    descI.classList.add('fa-xmark')
+    descBanner.append(descI)
+
+    //hide the modal window
+    descI.addEventListener('click', () => {
+      cardDesc.classList.add('inactive')
+    })
   })
