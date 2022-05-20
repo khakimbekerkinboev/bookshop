@@ -31,6 +31,29 @@ Header
 .navbar a:hover {
   color: black;
 }
+.navbar a:nth-child(5):hover > span {
+  background-color: black;
+}
+
+.navbar a:nth-child(5) {
+  position: relative;
+}
+.navbar a:nth-child(5) > span {
+  background-color: #393433;
+  font-size: 1rem;
+  color: white;
+  min-width: 1.1rem;
+  min-height: 1.1rem;
+  border-radius: 50%;
+  transform: translate(50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: all 300ms linear;
+}
 /*
 ====================
 Books
@@ -121,10 +144,10 @@ body {
 }
 .description-banner i {
   position: absolute;
-  top: 0.25rem;
-  right: 0.5rem;
+  top: 0.275rem;
+  right: 0.295rem;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 .description-banner h1 {
   margin-bottom: 0.8rem;
@@ -132,4 +155,83 @@ body {
 
 .inactive {
   display: none;
+}
+/*
+====================
+Bag
+==================== 
+*/
+
+.bag {
+  background-color: white;
+  width: 33.33%;
+  height: 100vh;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  border-left: 1px solid #c0c0c0;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+  box-shadow: 0 -1px 24px rgb(0 0 0 / 40%);
+}
+.bag-inactive {
+  transform: translate(100%);
+}
+.bag-title {
+  margin: 0 auto 2rem;
+  width: max-content;
+}
+.bag-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0 0.5rem;
+  margin-top: 0.25rem;
+  border-bottom: 1px solid #c0c0c0;
+  border-top: 1px solid #c0c0c0;
+}
+.item-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 1.5rem;
+}
+.item-right i {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.item-left {
+  width: 70%;
+}
+.item-left span {
+  font-weight: 400;
+}
+.total-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 0 1rem;
+}
+.total-items h2:nth-child(2) {
+  margin-right: 2.7rem;
+}
+.confirm {
+  text-align: center;
+}
+.confirm a {
+  text-decoration: none;
+  color: black;
+  font-size: 1.1rem;
+  border: 1px solid #c0c0c0;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.25rem;
+}
+.bag-exit {
+  font-size: 2rem;
+  position: absolute;
+  top: 0.65625rem;
+  left: 1rem;
+  cursor: pointer;
 }

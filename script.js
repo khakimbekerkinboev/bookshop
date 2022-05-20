@@ -40,7 +40,7 @@ navbarUl.append(a1)
 
 const a2 = document.createElement('a')
 a2.setAttribute('href', '#')
-a2.innerHTML = 'Books'
+a2.innerHTML = 'Catalog'
 navbarUl.append(a2)
 
 const a3 = document.createElement('a')
@@ -53,12 +53,16 @@ a4.setAttribute('href', '#')
 a4.innerHTML = 'About us'
 navbarUl.append(a4)
 
+const a5 = document.createElement('a')
+a5.setAttribute('href', '#')
+a5.innerHTML = `<i class="fa-solid fa-cart-shopping"></i>`
+const cartItems = document.createElement('span')
+cartItems.innerHTML = 0
+a5.append(cartItems)
+navbarUl.append(a5)
 //========================
-// Main
+// Books section
 //========================
-
-// books section
-
 const main = document.createElement('main')
 main.classList.add('main')
 wrapper.append(main)
@@ -84,6 +88,7 @@ fetch('./books.json')
     for (let i = 0; i < data.length; i++) {
       const singleCard = document.createElement('div')
       singleCard.classList.add('single-card')
+      singleCard.setAttribute('draggable', 'true')
 
       //divs
       const firstDiv = document.createElement('div')
@@ -119,7 +124,8 @@ fetch('./books.json')
       showMore.classList.add('show-more-btn')
       const addToBag = document.createElement('a')
       addToBag.innerHTML = 'Add to bag'
-      addToBag.setAttribute('href', '#')
+      addToBag.classList.add('add-to-bag')
+      addToBag.setAttribute('href', 'javascript:void(0)')
 
       bottomLinks.append(showMore)
       bottomLinks.append(addToBag)
@@ -131,6 +137,10 @@ fetch('./books.json')
       cards.append(singleCard)
     }
   })
+
+//========================
+// Modal window
+//========================
 
 fetch('./books.json')
   .then((response) => {
@@ -179,12 +189,157 @@ fetch('./books.json')
 
     //i
     const descI = document.createElement('i')
-    descI.classList.add('fa-solid')
-    descI.classList.add('fa-xmark')
+    descI.innerHTML = `<i class="fa-regular fa-circle-xmark"></i>`
     descBanner.append(descI)
 
     //hide the modal window
     descI.addEventListener('click', () => {
       cardDesc.classList.add('inactive')
+    })
+  })
+//========================
+// Bag
+//========================
+fetch('./books.json')
+  .then((response) => {
+    return response.json()
+  })
+  .then((data) => {
+    //bag
+    const bag = document.createElement('div')
+    bag.classList.add('bag')
+    bag.classList.add('bag-inactive')
+    document.body.append(bag)
+    //bag title
+    const bagTitle = document.createElement('h1')
+    bagTitle.classList.add('bag-title')
+    bagTitle.innerHTML = 'Shopping Bag'
+    bag.append(bagTitle)
+    //bag items
+    const bagItems = document.createElement('div')
+    bagItems.classList.add('bag-items')
+    bag.append(bagItems)
+
+    //===========================================================
+
+    const addToBag = document.querySelectorAll('.add-to-bag')
+
+    //create a function that creates a single item and adds it to the item list
+    const addItemToBag = (e) => {
+      //find author, title and price
+      const author =
+        e.currentTarget.parentElement.parentElement.previousElementSibling
+          .children[1].innerHTML
+      const title =
+        e.currentTarget.parentElement.parentElement.previousElementSibling
+          .children[2].innerHTML
+      const price = Number(
+        e.currentTarget.parentElement.parentElement.previousElementSibling.children[3].innerText.replace(
+          'Price: $',
+          ''
+        )
+      )
+      //create an item with those variables
+      //single bag
+      const bagItem = document.createElement('div')
+      bagItem.classList.add('bag-item')
+      bagItems.append(bagItem) //add the item to the list
+      //item left
+      const itemLeft = document.createElement('div')
+      itemLeft.classList.add('item-left')
+      const itemLeftH4 = document.createElement('h4')
+      itemLeftH4.innerHTML = `${author} <span>${title}</span>`
+      itemLeft.append(itemLeftH4)
+      bagItem.append(itemLeft)
+      //item right
+      const itemRight = document.createElement('div')
+      itemRight.classList.add('item-right')
+      const itemRightH4 = document.createElement('h4')
+      itemRightH4.innerHTML = `$${price}`
+      itemRight.append(itemRightH4)
+      const itemRightI = document.createElement('i')
+      itemRightI.classList.add('fa-regular')
+      itemRightI.classList.add('fa-circle-xmark')
+      itemRightI.classList.add('delete-item')
+      itemRight.append(itemRightI)
+      bagItem.append(itemRight)
+      //increase the number on the shopping-cart icon
+      cartItems.innerHTML++
+      //delete item
+      itemRightI.addEventListener('click', (e) => {
+        //remove the item
+        e.currentTarget.parentElement.parentElement.remove()
+        //decrease the number on the shopping-cart icon
+        cartItems.innerHTML--
+        //decrease total
+        totalItemsH22.innerHTML = `$${
+          Number(totalItemsH22.innerHTML.replace('$', ' ')) -
+          Number(
+            e.currentTarget.parentElement.children[0].innerHTML.replace(
+              '$',
+              ' '
+            )
+          )
+        }`
+      })
+
+      //increase the total
+      totalItemsH22.innerHTML = `$${
+        Number(totalItemsH22.innerHTML.replace('$', ' ')) + price
+      }`
+    }
+    //add to the bag
+    addToBag.forEach((button) => {
+      button.addEventListener('click', addItemToBag)
+    })
+
+    const singleCards = document.querySelectorAll('.single-card')
+    singleCards.forEach((card) => {
+      card.addEventListener('dragstart', (e) => {
+        e.target.style.opacity = '0.5'
+      })
+      card.addEventListener('dragend', (e) => {
+        e.target.style.opacity = '1'
+      })
+      bag.addEventListener('dragover', (e) => {
+        e.preventDefault()
+      })
+      bag.addEventListener('drop', (e) => {
+        e.preventDefault()
+        console.log('hello world')
+      })
+    })
+
+    //total items
+    const totalItems = document.createElement('div')
+    totalItems.classList.add('total-items')
+    bag.append(totalItems)
+    const totalItemsH21 = document.createElement('h2')
+    totalItemsH21.innerHTML = 'Total:'
+    totalItems.append(totalItemsH21)
+    const totalItemsH22 = document.createElement('h2')
+    totalItemsH22.innerHTML = 0
+    totalItems.append(totalItemsH22)
+    //confirm button
+    const confirm = document.createElement('div')
+    confirm.classList.add('confirm')
+    bag.append(confirm)
+    const confirmA = document.createElement('a')
+    confirmA.setAttribute('href', '#')
+    confirmA.innerHTML = 'Confirm order'
+    confirm.append(confirmA)
+    //bag exit
+    const bagExit = document.createElement('i')
+    bagExit.classList.add('fa-solid')
+    bagExit.classList.add('fa-arrow-right-to-bracket')
+    bagExit.classList.add('bag-exit')
+    bag.append(bagExit)
+
+    //bag in-and-out
+    bagExit.addEventListener('click', () => {
+      bag.classList.add('bag-inactive')
+    })
+    a5.addEventListener('click', () => {
+      bag.classList.remove('bag-inactive')
     })
   })
