@@ -164,7 +164,7 @@ Bag
 
 .bag {
   background-color: white;
-  width: 33.33%;
+  width: 33.33vw;
   height: 100vh;
   padding: 0.5rem 1rem;
   position: fixed;
@@ -178,6 +178,7 @@ Bag
 }
 .bag-inactive {
   transform: translate(100%);
+  box-shadow: none;
 }
 .bag-title {
   margin: 0 auto 2rem;

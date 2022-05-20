@@ -1,9 +1,3 @@
-fetch('./books.json')
-  .then((response) => {
-    return response.json()
-  })
-  .then((data) => {})
-
 //========================
 // Header
 //========================
@@ -343,7 +337,7 @@ fetch('./books.json')
     confirm.classList.add('confirm')
     bag.append(confirm)
     const confirmA = document.createElement('a')
-    confirmA.setAttribute('href', '#')
+    confirmA.setAttribute('href', '../order-form page/order-form.html')
     confirmA.innerHTML = 'Confirm order'
     confirm.append(confirmA)
     //bag exit
