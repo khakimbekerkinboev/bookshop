@@ -226,15 +226,19 @@ fetch('./books.json')
 
     //create a function that creates a single item and adds it to the item list
     const addItemToBag = (e) => {
+      if (e.innerHTML == undefined) {
+        e = e.currentTarget
+      }
       //find author, title and price
+
       const author =
-        e.currentTarget.parentElement.parentElement.previousElementSibling
-          .children[1].innerHTML
+        e.parentElement.parentElement.previousElementSibling.children[1]
+          .innerHTML
       const title =
-        e.currentTarget.parentElement.parentElement.previousElementSibling
-          .children[2].innerHTML
+        e.parentElement.parentElement.previousElementSibling.children[2]
+          .innerHTML
       const price = Number(
-        e.currentTarget.parentElement.parentElement.previousElementSibling.children[3].innerText.replace(
+        e.parentElement.parentElement.previousElementSibling.children[3].innerText.replace(
           'Price: $',
           ''
         )
@@ -288,26 +292,40 @@ fetch('./books.json')
         Number(totalItemsH22.innerHTML.replace('$', ' ')) + price
       }`
     }
-    //add to the bag
+    //add to the bag with "add to bag" button
     addToBag.forEach((button) => {
       button.addEventListener('click', addItemToBag)
     })
-
+    //add to the bag with "drag and drop"
     const singleCards = document.querySelectorAll('.single-card')
     singleCards.forEach((card) => {
       card.addEventListener('dragstart', (e) => {
-        e.target.style.opacity = '0.5'
+        e.currentTarget.style.opacity = '0.5'
+        e.currentTarget.classList.add('dragging')
       })
+
       card.addEventListener('dragend', (e) => {
-        e.target.style.opacity = '1'
+        e.currentTarget.style.opacity = '1'
+        e.currentTarget.classList.remove('dragging')
       })
-      bag.addEventListener('dragover', (e) => {
-        e.preventDefault()
-      })
-      bag.addEventListener('drop', (e) => {
-        e.preventDefault()
-        console.log('hello world')
-      })
+    })
+    a5.addEventListener('dragover', (e) => {
+      e.preventDefault()
+    })
+    a5.addEventListener('drop', (e) => {
+      e.preventDefault()
+      const draggingCard = document.querySelector('.dragging')
+      const addToBagBtn = draggingCard.children[1].children[0].children[1]
+      addItemToBag(addToBagBtn)
+    })
+    bag.addEventListener('dragover', (e) => {
+      e.preventDefault()
+    })
+    bag.addEventListener('drop', (e) => {
+      e.preventDefault()
+      const draggingCard = document.querySelector('.dragging')
+      const addToBagBtn = draggingCard.children[1].children[0].children[1]
+      addItemToBag(addToBagBtn)
     })
 
     //total items
@@ -318,7 +336,7 @@ fetch('./books.json')
     totalItemsH21.innerHTML = 'Total:'
     totalItems.append(totalItemsH21)
     const totalItemsH22 = document.createElement('h2')
-    totalItemsH22.innerHTML = 0
+    totalItemsH22.innerHTML = '$0'
     totalItems.append(totalItemsH22)
     //confirm button
     const confirm = document.createElement('div')
