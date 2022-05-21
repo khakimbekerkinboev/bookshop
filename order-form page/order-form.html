@@ -8,6 +8,90 @@
     <title>Order form</title>
   </head>
   <body>
+    <div class="form-banner">
+      <h2 class="form-title">Order Form</h1>
+      <form action="" id="form">
+        <div>
+          <label for="name">Name</label>
+          <input type="text" id="name" required />
+        </div>
+        <div>
+          <label for="name">Surname</label>
+          <input type="text" id="name" required />
+        </div>
+        <div>
+          <label for="date">Delivery date</label>
+          <input type="date" id="date" />
+        </div>
+        <div>
+          <label for="street">Street</label>
+          <input type="text" id="street" required />
+        </div>
+        <div>
+          <label for="house-number">House number</label>
+          <input type="number" id="house-number" required />
+        </div>
+        <div>
+          <label for="flat-number">Flat number</label>
+          <input type="number" id="flat-number" required />
+        </div>
+        <div>
+   <p>Payment type</p>
+          <div>
+            <input
+              type="radio"
+              id="payment-type"
+              name="payment-type"
+              required
+            />
+            <label for="payment-type">Cash</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              id="payment-type"
+              name="payment-type"
+              required
+            />
+            <label for="payment-type">Card</label>
+          </div>
+        </div>
+        <div>
+          <p>Choose 2 gifts</p>
+          
+          <div>
+            <input type="checkbox" name="pack-as-a-gift" id="pack-as-a-gift" />
+            <label for="pack-as-a-gift">Pack as a gift</label>
+          </div>
+          <div>
+            <input type="checkbox" name="add-postcard" id="add-postcard" />
+            <label for="add-postcard">Add postcard</label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="provide-2%-discount-to-the-next-time"
+              id="provide-2%-discount-to-the-next-time"
+            />
+            <label for="provide-2%-discount-to-the-next-time"
+              >Provide 2% discount to the next time</label
+            >
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              name="branded-pen-or-pencil"
+              id="branded-pen-or-pencil"
+            />
+            <label for="branded-pen-or-pencil">Branded pen or pencil</label>
+          </div>
+        </div>
+        <div class="button-container">
+          <button type="submit" class="complete-btn">Complete</button>
+        </div>
+      </form>
+    </div>
+
     <script src="./order-form.js"></script>
   </body>
 </html>
