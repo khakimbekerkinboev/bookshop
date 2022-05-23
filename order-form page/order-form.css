@@ -5,7 +5,7 @@
 }
 .form-banner {
   width: 30rem;
-  margin: 3.5rem auto 0;
+  margin: 2rem auto 0;
   padding: 1.5rem;
   border-radius: 0.5rem;
   font-size: 1.2rem;
@@ -43,6 +43,13 @@
   border-radius: 0.2rem;
   padding: 0.15rem 0.25rem;
 }
+
+label > span {
+  color: #d93025;
+}
+.payment-type > p > span {
+  color: #d93025;
+}
 #form > div:nth-child(7),
 #form > div:nth-child(8) {
   margin-bottom: 0.75rem;
@@ -63,4 +70,65 @@
   cursor: pointer;
   font-size: 1.2rem;
   font-family: 'Times New Roman', Times, serif;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.back-to-catalog {
+  margin: 0.5rem 0 0 0.5rem;
+}
+
+.back-to-catalog a {
+  text-decoration: none;
+  margin-top: 1rem;
+  color: black;
+}
+/* 
+==================
+results
+==================
+*/
+body {
+  position: relative;
+}
+.results {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  z-index: 100;
+  position: fixed;
+  transition: all 200ms ease-in-out;
+}
+.results-banner {
+  background-color: white;
+  width: 27rem;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  position: relative;
+  border: 1px solid #c0c0c0;
+  box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.5);
+}
+.results-banner i {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+.results-banner h1 {
+  margin-bottom: 0.8rem;
+}
+
+.inactive {
+  display: none;
 }
