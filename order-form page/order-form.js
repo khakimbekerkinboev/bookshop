@@ -171,8 +171,6 @@ form.addEventListener('submit', function (e) {
 })
 
 //results exit button
-if (resExitBtn !== null) {
-  resExitBtn.addEventListener('click', function () {
-    results.classList.add('inactive')
-  })
-}
+resExitBtn.addEventListener('click', function () {
+  results.classList.add('inactive')
+})

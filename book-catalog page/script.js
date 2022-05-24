@@ -3,7 +3,6 @@
 //========================
 const wrapper = document.createElement('div')
 wrapper.classList.add('wrapper')
-document.body.append(wrapper)
 
 const header = document.createElement('header')
 header.classList.add('header')
@@ -135,18 +134,16 @@ fetch('./books.json')
 //========================
 // Modal window
 //========================
+//modal window
+const cardDesc = document.createElement('div')
+cardDesc.classList.add('card-description')
+cardDesc.classList.add('inactive')
 
 fetch('./books.json')
   .then((response) => {
     return response.json()
   })
   .then((data) => {
-    //modal window
-    const cardDesc = document.createElement('div')
-    cardDesc.classList.add('card-description')
-    cardDesc.classList.add('inactive')
-    document.body.append(cardDesc)
-
     //description-banner
     const descBanner = document.createElement('div')
     descBanner.classList.add('description-banner')
@@ -194,16 +191,16 @@ fetch('./books.json')
 //========================
 // Bag
 //========================
+//bag
+const bag = document.createElement('div')
+bag.classList.add('bag')
+bag.classList.add('bag-inactive')
+
 fetch('./books.json')
   .then((response) => {
     return response.json()
   })
   .then((data) => {
-    //bag
-    const bag = document.createElement('div')
-    bag.classList.add('bag')
-    bag.classList.add('bag-inactive')
-    document.body.append(bag)
     //bag title
     const bagTitle = document.createElement('h1')
     bagTitle.classList.add('bag-title')
@@ -355,3 +352,12 @@ fetch('./books.json')
       bag.classList.remove('bag-inactive')
     })
   })
+
+//========================
+// Document Fragment
+//========================
+const docFrag = document.createDocumentFragment()
+docFrag.append(wrapper)
+docFrag.append(cardDesc)
+docFrag.append(bag)
+document.body.append(docFrag)
