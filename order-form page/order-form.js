@@ -119,10 +119,6 @@ checkboxes.forEach((e) => {
     const checkedItems = checkboxes.filter((item) => item.checked)
     if (checkedItems.length > 2) {
       this.checked = false
-      this.setCustomValidity('You cannot choose more than two gifts.')
-      this.reportValidity()
-    } else {
-      this.setCustomValidity('')
     }
   })
 })

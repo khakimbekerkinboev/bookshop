@@ -229,6 +229,10 @@ Bag
   padding: 0.4rem 0.5rem;
   border-radius: 0.25rem;
 }
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 .bag-exit {
   font-size: 2rem;
   position: absolute;

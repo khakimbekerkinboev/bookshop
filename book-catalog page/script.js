@@ -195,7 +195,9 @@ fetch('./books.json')
 const bag = document.createElement('div')
 bag.classList.add('bag')
 bag.classList.add('bag-inactive')
-
+//bag items
+const bagItems = document.createElement('div')
+bagItems.classList.add('bag-items')
 fetch('./books.json')
   .then((response) => {
     return response.json()
@@ -206,9 +208,7 @@ fetch('./books.json')
     bagTitle.classList.add('bag-title')
     bagTitle.innerHTML = 'Shopping Bag'
     bag.append(bagTitle)
-    //bag items
-    const bagItems = document.createElement('div')
-    bagItems.classList.add('bag-items')
+    //add bagItems to the bag
     bag.append(bagItems)
 
     //===========================================================
@@ -235,7 +235,7 @@ fetch('./books.json')
         )
       )
       //create an item with those variables
-      //single bag
+      //single bag item
       const bagItem = document.createElement('div')
       bagItem.classList.add('bag-item')
       bagItems.append(bagItem) //add the item to the list
@@ -276,12 +276,21 @@ fetch('./books.json')
             )
           )
         }`
+        //disable confirm order button
+        if (bagItems.innerHTML == '') {
+          confirmA.setAttribute('href', '#')
+          confirmA.classList.add('disabled')
+        }
       })
 
       //increase the total
       totalItemsH22.innerHTML = `$${
         Number(totalItemsH22.innerHTML.replace('$', ' ')) + price
       }`
+      if (!bagItems.innerHTML == '') {
+        confirmA.setAttribute('href', '../order-form page/order-form.html')
+        confirmA.classList.remove('disabled')
+      }
     }
     //add to the bag with "add to bag" button
     addToBag.forEach((button) => {
@@ -317,6 +326,10 @@ fetch('./books.json')
       const draggingCard = document.querySelector('.dragging')
       const addToBagBtn = draggingCard.children[1].children[0].children[1]
       addItemToBag(addToBagBtn)
+      if (!bagItems.innerHTML == '') {
+        confirmA.setAttribute('href', '../order-form page/order-form.html')
+        confirmA.classList.remove('disabled')
+      }
     })
 
     //total items
@@ -334,7 +347,9 @@ fetch('./books.json')
     confirm.classList.add('confirm')
     bag.append(confirm)
     const confirmA = document.createElement('a')
-    confirmA.setAttribute('href', '../order-form page/order-form.html')
+    confirmA.setAttribute('href', '#')
+    // confirmA.setAttribute('href', '../order-form page/order-form.html')
+    confirmA.classList.add('disabled')
     confirmA.innerHTML = 'Confirm order'
     confirm.append(confirmA)
     //bag exit
