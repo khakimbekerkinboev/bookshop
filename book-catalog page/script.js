@@ -287,6 +287,7 @@ fetch('./books.json')
       totalItemsH22.innerHTML = `$${
         Number(totalItemsH22.innerHTML.replace('$', ' ')) + price
       }`
+      //activate confirm order button
       if (!bagItems.innerHTML == '') {
         confirmA.setAttribute('href', '../order-form page/order-form.html')
         confirmA.classList.remove('disabled')
@@ -326,6 +327,7 @@ fetch('./books.json')
       const draggingCard = document.querySelector('.dragging')
       const addToBagBtn = draggingCard.children[1].children[0].children[1]
       addItemToBag(addToBagBtn)
+      //activate confirm order button
       if (!bagItems.innerHTML == '') {
         confirmA.setAttribute('href', '../order-form page/order-form.html')
         confirmA.classList.remove('disabled')

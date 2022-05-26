@@ -82,6 +82,8 @@ flatNumber.addEventListener('blur', function (e) {
     flatNumber.setCustomValidity('')
   } else if (flatNumber.value == '') {
     flatNumber.setCustomValidity('Please fill out this field.')
+  } else if (!/\d/.test(flatNumber.value)) {
+    flatNumber.setCustomValidity('Please fill out this field.')
   } else if (Number(flatNumber.value) <= 0) {
     flatNumber.setCustomValidity('Positive numbers only')
   } else {
